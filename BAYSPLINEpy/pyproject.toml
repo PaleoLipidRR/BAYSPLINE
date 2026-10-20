@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bayspline"
+version = "0.1.0.dev0"
+description = "BAYSPLINE: a Bayesian calibration for the alkenone (UK'37) paleothermometer"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Ronnakrit Rattanasriampaipong" }]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+# The import package is `baysplinepy`, not `bayspline`: brews/baysplinepy already
+# imports as `bayspline`, and the comparison notebook installs both.
+dependencies = ["numpy>=1.23", "scipy>=1.9"]
+
+[project.optional-dependencies]
+dev = ["pytest", "matplotlib", "jupyter", "nbformat", "nbclient"]
+# notebooks/compare_implementations.ipynb runs against brews/baysplinepy when it
+# is present and says so when it is not.
+compare = ["baysplinepy>=0.0.2"]
+
+# `uv sync` installs this group by default, so one command gives a venv that runs
+# the tests and the comparison notebook.
+[dependency-groups]
+dev = ["bayspline[dev,compare]"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["baysplinepy*"]
+
+[tool.setuptools.package-data]
+baysplinepy = ["data/*.mat", "data/*.csv"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
