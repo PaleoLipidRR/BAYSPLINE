@@ -1,0 +1,11 @@
+.DS_Store
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.venv/
+.ipynb_checkpoints/
+octave-workspace
